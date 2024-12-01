@@ -67,38 +67,33 @@ Update the `StudentsComponent` to delegate all logic to the service.
 
 ##### **Component Code (`StudentsComponent`):**
 ```typescript
-import { Component, OnInit } from '@angular/core';
-import { Student } from '../student';
-import { StudentService } from '../student.service';
+import {Component, OnInit} from '@angular/core';
+import {Student} from '../student';
+import {StudentService} from '../student.service';
 
 @Component({
   selector: 'app-students',
+  standalone: false,
+
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'
 })
 export class StudentsComponent implements OnInit {
   students: Student[] = [];
-  newStudent: Student = { id: 0, name: '', email: '' };
-  errorMessage: string = '';
+  newStudent: Student = {id: 0, name: '', email: ''};
+  editStudent: Student | null = null; // Holds student being edited
 
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService) {
+  }
 
   ngOnInit(): void {
-    // Load students from the service
     this.students = this.studentService.getStudents();
   }
 
   addStudent(): void {
-    // Delegate to service and handle the result
-    const result = this.studentService.addStudent(this.newStudent);
-
-    if (!result.success) {
-      this.errorMessage = result.message; // Show error if validation fails
-    } else {
-      this.errorMessage = ''; // Clear any existing errors
-      this.students = this.studentService.getStudents(); // Refresh the list
-      this.newStudent = { id: 0, name: '', email: '' }; // Reset the form
-    }
+    this.studentService.addStudent(this.newStudent);
+    this.students = this.studentService.getStudents(); // Refresh the list
+    this.newStudent = {id: 0, name: '', email: ''}; // Reset the form
   }
 }
 ```
