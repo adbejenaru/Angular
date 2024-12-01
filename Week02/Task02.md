@@ -21,39 +21,41 @@ Move the logic for adding students to the `StudentService`. Update the service t
 ##### **Service Code (`StudentService`):**
 ```typescript
 import { Injectable } from '@angular/core';
-import { Student } from './student';
+import {Student} from './student';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
   private students: Student[] = [
-    { id: 1, name: 'Vasile', email: 'vasile@gmail.com' },
-    { id: 2, name: 'Virginia', email: 'virginia@gmail.com' },
+    {id: 1, name: 'Vasile', email: 'vasile@gmail.com'},
+    {id: 2, name: 'Virginia', email: 'virginia@gmail.com'},
   ];
 
+  // Retrieve all students
   getStudents(): Student[] {
-    // Return a copy to avoid direct modification of the original array
-    return [...this.students];
+    return [...this.students]; // Return a copy to prevent direct modification
   }
 
-  addStudent(newStudent: Student): { success: boolean; message: string } {
-    newStudent.id = Number(newStudent.id); // Ensure ID is a number
+  // Add a new student
+  addStudent(newStudent: Student): void {
+    newStudent.id = Number(newStudent.id);
 
-    // Validate the fields
     if (!newStudent.id || !newStudent.name || !newStudent.email) {
-      return { success: false, message: 'All fields are required' };
+      alert('All fields are required!');
+      return;
     }
 
-    // Check for duplicate ID
     const duplicate = this.students.some(student => student.id === newStudent.id);
     if (duplicate) {
-      return { success: false, message: 'A student with this ID already exists!' };
+      alert('A student with this ID already exists!');
+      return;
     }
 
-    // Add the student to the array
-    this.students.push({ ...newStudent });
-    return { success: true, message: 'Student added successfully!' };
+    this.students.push({...newStudent});
+    alert('Student added successfully!');
   }
 }
 ```
