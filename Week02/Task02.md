@@ -108,26 +108,28 @@ Update the template to handle error messages dynamically. No changes are needed 
 <h2>Student List</h2>
 <table>
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let student of students">
-      <td>{{ student.id }}</td>
-      <td>{{ student.name }}</td>
-      <td>{{ student.email }}</td>
-    </tr>
+  <tr *ngFor="let student of students">
+    <td>{{ student.id }}</td>
+    <td>{{ student.name }}</td>
+    <td>{{ student.email }}</td>
+    <td>
+      <button (click)="startEdit(student)">Edit</button>
+      <button (click)="deleteStudent(student.id)">Delete</button>
+    </td>
+  </tr>
   </tbody>
 </table>
 
-<h3>Add New Student</h3>
 
-<!-- Display error messages -->
-<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-
+<h3 >Add New Student</h3>
 <form (ngSubmit)="addStudent()">
   <label>
     ID: <input [(ngModel)]="newStudent.id" name="id" type="number" required>
@@ -140,6 +142,8 @@ Update the template to handle error messages dynamically. No changes are needed 
   </label>
   <button type="submit">Add Student</button>
 </form>
+
+
 ```
 
 ---
