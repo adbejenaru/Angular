@@ -172,4 +172,6 @@ export class StudentsComponent {
 
 ---
 
+Am adaugat required in fisierul HTML 
+
 Let me know if you'd like further clarifications or improvements! 😊
