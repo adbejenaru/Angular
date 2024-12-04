@@ -1,4 +1,5 @@
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/70e07800-812f-40b2-8f17-66fe480b827c)
+
 
 ### **Module**
 - Modulele grupează componentele, directivele, serviciile și alte părți funcționale ale aplicației într-o structură organizată.
